@@ -85,3 +85,7 @@ table {
 #entryData {
   text-align: center;
 }
+
+#habitName {
+  margin-bottom: 5px;
+}

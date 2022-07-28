@@ -1,4 +1,5 @@
 const name = document.getElementById("name");
+const date = document.getElementById("date");
 const password = document.getElementById("password");
 const addEntry = document.getElementById("addEntry");
 const habitBtn = document.getElementById("habitBtn");
@@ -23,11 +24,20 @@ const closeModalBtn = document.getElementById("closeModalBtn");
 const modalContainer = document.getElementById("modalContainer");
 const modalDate = document.getElementById("modalDate");
 
+//Adding todays date as default
+
+let today = new Date();
+const dd = String(today.getDate()).padStart(2, "0");
+const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+const yyyy = today.getFullYear();
+
+today = yyyy + "-" + mm + "-" + dd;
+date.value = today;
+
 //Adding Table Headers
 
 let headersHtml = "";
 labels.forEach((label) => {
-  console.log(label.htmlFor);
   if (label.htmlFor === "journalEntry") {
     headersHtml += `<th>Journal Entry</th>`;
   } else {
@@ -93,6 +103,10 @@ addEntry.addEventListener("submit", (e) => {
   entryHtml += "</tr>";
   tableEntries.innerHTML = entryHtml + tableEntries.innerHTML;
 
+  //Date is set to blank so resetting to today
+
+  date.value = today;
+
   // OPEN MODAL //
 
   //creating an event listener for each "view entry" button. each event
@@ -104,13 +118,12 @@ addEntry.addEventListener("submit", (e) => {
         modalJournalEntry = document.getElementById("modalJournalEntry");
         modalJournalEntry.innerText = entriesArr[i - 1].journalEntry;
         modalDate.innerText = entriesArr[i - 1].date;
-        console.log(entriesArr[i - 1].journalEntry);
-        console.log(entriesArr);
         modalContainer.style.opacity = 1;
         modalContainer.style.pointerEvents = "all";
         //modal.innerHTML
       });
   }
+
   // errorElement.innerText = messages.join(", ");
   //
 
@@ -133,8 +146,6 @@ habitBtn.addEventListener("click", (e) => {
     // Adding to table
     let tableHabitHtml = `<th style="width:20px">${habitField.value}</th>`;
     tableHeaders.innerHTML += tableHabitHtml;
-    // console.log(document.getElementById("habit1"));
-    //console.log(fields);
     habitField.value = "";
   }
 });
@@ -145,10 +156,3 @@ closeModalBtn.addEventListener("click", (e) => {
   modalContainer.style.opacity = 0;
   modalContainer.style.pointerEvents = "none";
 });
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, "0");
-var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-var yyyy = today.getFullYear();
-
-today = mm + "/" + dd + "/" + yyyy;
-console.log(today);
