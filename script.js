@@ -6,7 +6,6 @@ const habitBtn = document.getElementById("habitBtn");
 const addHabit = document.getElementById("addHabit");
 const habitDiv = document.getElementById("habitDiv");
 const errorElement = document.getElementById("error");
-//const fields = addEntry.querySelectorAll("input, textarea");
 const habitField = addHabit.querySelector("input");
 const labels = addEntry.querySelectorAll("label");
 const table = document.getElementById("table");
@@ -16,6 +15,20 @@ let entriesArr = [];
 const checkedColor = "rgb(106, 165, 106)";
 const uncheckedColor = "null";
 let entryNum = 0;
+const monthsArr = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 //Modal//
 let modalJournalEntry = null;
@@ -28,20 +41,20 @@ const modalDate = document.getElementById("modalDate");
 
 let today = new Date();
 const dd = String(today.getDate()).padStart(2, "0");
-const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0
 const yyyy = today.getFullYear();
 
 today = yyyy + "-" + mm + "-" + dd;
 date.value = today;
 
-//Adding Table Headers
+//------ADDING TABLE HEADERS-------//
 
 let headersHtml = "";
 labels.forEach((label) => {
   if (label.htmlFor === "journalEntry") {
-    headersHtml += `<th>Journal Entry</th>`;
+    headersHtml += `<th class=tableHeader id="journalEntryTableHeader">Journal Entry</th>`;
   } else {
-    headersHtml += `<th>${label.outerText}</th>`;
+    headersHtml += `<th class=tableHeader>${label.outerText}</th>`;
   }
 });
 
@@ -52,22 +65,10 @@ addEntry.addEventListener("submit", (e) => {
 
   let fields = addEntry.querySelectorAll("input, textarea");
 
-  //   if (name.value === "" || name.value == null) {
-  //     messages.push("Name is required");
-  //     e.preventDefault();
-  //   }
-  //   if (password.value.length <= 6) {
-  //     messages.push("Password must be over 6 characters");
-  //     e.preventDefault();
-  //   }
-  // if (!messages[0]) {
-  //   messages.push(
-  //     `Welcome ${name.value}! Your Password is ${password.value}!!!!!!`
-  //   );
   e.preventDefault();
-  //location.reload(true);
 
-  //Adding entries to table
+  //--------Adding entries to table---------//
+
   let entryHtml = '<tr id="entryRow">';
   let entryObj = {};
   entryNum++;
@@ -78,11 +79,10 @@ addEntry.addEventListener("submit", (e) => {
       entryObj[field.id] = field.checked;
       //is it checked?
       if (field.checked) {
-        //field.style.backgroundColor = checkedColor;
-        entryHtml += `<td id="entryData" style="background-color:${checkedColor}; color:white">X</td>`;
+        entryHtml += `<td><div id="habitEntryData" class="habitEntryDataTrue" style="background-color:${checkedColor}; color:white">&#9587;</div></td>`;
         //is it unchecked?
       } else {
-        entryHtml += `<td id="entryData" style="background-color:${uncheckedColor}"></td>`;
+        entryHtml += `<td><div id="habitEntryData" class="habitEntryDataFalse" style="background-color:${uncheckedColor}"></div></td>`;
       }
 
       field.checked = false; //reseting checkbox
@@ -92,6 +92,13 @@ addEntry.addEventListener("submit", (e) => {
 
       entryObj[field.id] = field.value;
       field.value = "";
+    } else if (field.type === "date") {
+      let dateStr = `${monthsArr[parseInt(field.value[(5, 6)]) - 1]} ${
+        field.value[(8, 9)]
+      }`;
+      entryObj["date"] = field.value;
+      entryObj["dateStr"] = dateStr;
+      entryHtml += `<td id="entryData">${dateStr}</td>`;
     } else {
       //if not checkbox
       entryObj[field.id] = field.value;
@@ -117,7 +124,7 @@ addEntry.addEventListener("submit", (e) => {
       .addEventListener("click", (e) => {
         modalJournalEntry = document.getElementById("modalJournalEntry");
         modalJournalEntry.innerText = entriesArr[i - 1].journalEntry;
-        modalDate.innerText = entriesArr[i - 1].date;
+        modalDate.innerText = entriesArr[i - 1].dateStr;
         modalContainer.style.opacity = 1;
         modalContainer.style.pointerEvents = "all";
         //modal.innerHTML
@@ -130,6 +137,22 @@ addEntry.addEventListener("submit", (e) => {
   //
 });
 
+//-----ADD HABIT MODAL------//
+
+openAddHabitModalBtn = document.getElementById("openAddHabitModalBtn");
+openAddHabitModalBtn.addEventListener("click", (e) => {
+  addHabitModalContainer.style.opacity = 1;
+  addHabitModalContainer.style.pointerEvents = "all";
+});
+
+//close add habit model
+
+closeAddHabitModalBtn = document.getElementById("closeAddHabitModalBtn");
+closeAddHabitModalBtn.addEventListener("click", (e) => {
+  addHabitModalContainer.style.opacity = 0;
+  addHabitModalContainer.style.pointerEvents = "none";
+});
+
 //------ADDING HABIT--------//
 let habitNum = 1;
 habitBtn.addEventListener("click", (e) => {
@@ -137,14 +160,14 @@ habitBtn.addEventListener("click", (e) => {
   if (habitField.value) {
     // Adding to fields
     let habitHtml = ` <div>
- <label for="habit${habitNum}">${habitField.value}</label>
  <input id="habit${habitNum}" name="habit${habitNum}" type="checkbox" />
-</div>`;
+ <label for="habit${habitNum}">${habitField.value}</label>
+ </div>`;
     habitNum++;
     habitDiv.innerHTML += habitHtml;
 
     // Adding to table
-    let tableHabitHtml = `<th style="width:20px">${habitField.value}</th>`;
+    let tableHabitHtml = `<th class=tableHeader id=habitTableHeader>${habitField.value}</th>`;
     tableHeaders.innerHTML += tableHabitHtml;
     habitField.value = "";
   }
@@ -156,3 +179,14 @@ closeModalBtn.addEventListener("click", (e) => {
   modalContainer.style.opacity = 0;
   modalContainer.style.pointerEvents = "none";
 });
+
+//Making the modal Fade in/out after 1sec because otherwise the modals appear when right after the page is refreshed
+const addHabitModalContainer = document.getElementById(
+  "addHabitModalContainer"
+);
+setTimeout(() => {
+  const modalContainers = document.querySelectorAll(".modalContainer");
+  modalContainers.forEach((e) => {
+    e.style.transition = "opacity 0.5s ease";
+  });
+}, 2000);

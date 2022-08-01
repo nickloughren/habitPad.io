@@ -14,7 +14,7 @@ button {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   color: #fff;
   font-size: 14px;
-  padding: 10px 25px;
+  padding: 10px 15px;
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -29,28 +29,52 @@ h1 {
   background-color: rgb(106, 165, 106);
   color: white;
   padding: 10px;
-}
-table,
-td {
-  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0;
 }
 
-td {
+h5 {
+  text-align: center;
   margin: 0 auto;
+}
+
+h4 {
+  margin: 0;
+}
+
+h6 {
+  margin-top: 0;
+}
+
+/* table,
+td {
+  border: 1px solid rgb(0, 0, 0);
+} */
+
+td {
+  /* margin: 0 auto; */
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 th {
   background-color: rgb(106, 165, 106);
-  border: 500px;
+  /* border: 500px; */
+  text-align: center;
   /* border-radius: 5px; */
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
   color: #fff;
   font-size: 15px;
-  padding: 5px 30px;
+  padding: 5px 15px;
+  max-width: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 table {
-  max-width: 100%;
+  max-width: 95%;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .modalContainer {
@@ -65,6 +89,7 @@ table {
   height: 100%;
   opacity: 0;
   pointer-events: none;
+  /* transition: opacity 0.5s ease; */
 }
 
 .modal {
@@ -72,7 +97,7 @@ table {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 30px 50px;
-  width: 1000px;
+  width: 600px;
   max-width: 70%;
   /* opacity: 1; */
   position: fixed;
@@ -82,10 +107,71 @@ table {
   font-weight: normal;
 }
 
-#entryData {
+#entryData,
+#habitEntryData {
   text-align: center;
 }
 
 #habitName {
   margin-bottom: 5px;
+}
+
+#habitEntryData {
+  height: 30px;
+  width: 30px;
+  max-width: 50px;
+  border-radius: 5px;
+  margin: auto;
+  /* position: relative; */
+  align-items: center;
+  /* border: 1px solid #fff; */
+  font-size: 18px;
+}
+
+.habitEntryDataTrue:after {
+  /* position: absolute;
+
+  bottom: -25px;
+
+  right: -6px; */
+  /* content: "\d7"; */
+
+  color: #ffffff;
+  /* line-height: 100px; */
+  text-align: center;
+}
+
+.habitEntryDataFalse {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+#habitBtn {
+  margin-bottom: 5px;
+}
+
+#modalDate {
+  margin: 0;
+}
+
+#habitTableHeader {
+  width: 20px;
+}
+
+#journalEntryTableHeader {
+  max-width: 100px;
+}
+
+#addHabitModal {
+  width: 300px;
+  text-align: center;
+}
+
+#closeAddHabitModalBtn,
+#habitBtn {
+  display: inline-block;
+}
+
+#habitBtns {
+  justify-content: space-between;
+  margin-top: 15px;
 }

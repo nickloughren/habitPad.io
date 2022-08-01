@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- <h1>Welcome to the Journal & Habit Tracker Combo!!!!😨😮😲🤯🙀👀 Habit.ch</h1> -->
     <h1>HabitPad.io</h1>
-    <!-- <h2>The Single Best Journal & Habit Tracker App in the whole world😮</h2> -->
-    <h4>(Nick's billion dollar startup)</h4>
+    <h4>Journal & Habit Tracker Web App</h4>
+    <h6>(Nick's billion dollar startup idea)</h6>
+
     <form id="addEntry" action="/" method="GET">
       <div>
         <label for="date">Date</label><br />
@@ -36,22 +36,32 @@
       <div id="habitDiv"></div>
       <div>
         <button type="submit">Submit</button>
+        <h5>or</h5>
+        <button id="openAddHabitModalBtn" type="button">
+          Add a Habit to Track
+        </button>
       </div>
       <div id="error"></div>
-
-      <!-- ADD A HABIT -->
     </form>
-    <form id="addHabit" action="/" method="GET">
-      <div><h3>Add a Habit!</h3></div>
-      <div>
-        <label for="habitName">Habit Name:</label>
-        <input id="habitName" name="habitName" type="text" />
-      </div>
 
-      <div>
-        <button type="submit" id="habitBtn">Add Habit</button>
+    <!-- ADD A HABIT -->
+    <div class="modalContainer" id="addHabitModalContainer">
+      <div class="modal" id="addHabitModal">
+        <form id="addHabit" action="/" method="GET">
+          <div><h3>Add a Habit!</h3></div>
+          <div>
+            <label for="habitName">Habit Name:</label>
+            <input id="habitName" name="habitName" type="text" />
+          </div>
+
+          <div id="habitBtns">
+            <button type="submit" id="habitBtn">Add Habit</button>
+            <button id="closeAddHabitModalBtn" type="button">Back</button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
+    <!-- TABLE -->
     <br />
     <table id="table">
       <thead id="tableHead">
@@ -59,6 +69,8 @@
       </thead>
       <tbody id="tableEntries"></tbody>
     </table>
+
+    <!-- ENTRY MODAL -->
     <div class="modalContainer" id="modalContainer">
       <div class="modal">
         <h3>Date: <span id="modalDate"></span></h3>
