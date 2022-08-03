@@ -130,11 +130,6 @@ addEntry.addEventListener("submit", (e) => {
         //modal.innerHTML
       });
   }
-
-  // errorElement.innerText = messages.join(", ");
-  //
-
-  //
 });
 
 //-----ADD HABIT MODAL------//
