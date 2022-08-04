@@ -182,6 +182,6 @@ const addHabitModalContainer = document.getElementById(
 setTimeout(() => {
   const modalContainers = document.querySelectorAll(".modalContainer");
   modalContainers.forEach((e) => {
-    e.style.transition = "opacity 0.5s ease";
+    e.style.transition = "opacity 0.3s ease";
   });
 }, 2000);
